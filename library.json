@@ -1,12 +1,13 @@
 {
   "name": "MultiFuncShield",
-  "keywords": "Mutli function Shield",
+  "keywords": "Mutli function Shield, MFS",
   "description": "Allows easy use of multi function shield.",
   "repository":
   {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/hpsaturn/MultiFuncShield.git"
   },
+  "version": "1.0.0",
   "frameworks": "arduino",
   "platforms":
   [
