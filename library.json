@@ -5,7 +5,7 @@
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/hpsaturn/MultiFuncShield.git"
+    "url": "https://github.com/hpsaturn/MultiFuncShield-Library.git"
   },
   "version": "1.0.0",
   "frameworks": "arduino",
