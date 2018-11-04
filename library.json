@@ -1,5 +1,7 @@
 {
   "name": "MultiFuncShield",
+  "author": "Hackatronics",
+  "maintainer":"hpsaturn@gmail.com",
   "keywords": "Multi function Shield, MFS, MultiFuncShield",
   "description": "Allows easy use of multi function shield.",
   "repository":
