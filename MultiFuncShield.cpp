@@ -75,11 +75,8 @@ void MultiFuncShield::initShield()
   
   /* Set the buzzer pin to an output and turn the buzzer off */
   pinMode(BEEPER_PIN, OUTPUT);
-  if (beeperReversePolarity) {
-    digitalWrite(BEEPER_PIN, LOW);    
-  } else {
-    digitalWrite(BEEPER_PIN, HIGH);
-  }
+  digitalWrite(BEEPER_PIN, HIGH != beeperReversePolarity);
+  
 }
 
 // ----------------------------------------------------------------------------------------------------
