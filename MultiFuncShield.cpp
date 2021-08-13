@@ -13,7 +13,7 @@ const byte LED[] = {LED_1_PIN, LED_2_PIN, LED_3_PIN, LED_4_PIN};
 /* Segment byte maps for numbers 0 to 9 */
 const byte SEGMENT_MAP_DIGIT[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0X80,0X90};
 /* Segment byte maps for alpha a-z */
-const byte SEGMENT_MAP_ALPHA[] = {136, 131, 167, 161, 134, 142, 144, 139 ,207, 241, 182, 199, 182, 171, 163, 140, 152, 175, 146, 135, 227, 182, 182, 182, 145, 182};
+const byte SEGMENT_MAP_ALPHA[] = {136, 131, 167, 161, 134, 142, 144, 139 ,207, 241, 138, 199, 170, 171, 163, 140, 152, 175, 146, 135, 227, 227, 129, 137, 145, 164};
 
 /* Byte maps to select digit 1 to 4 */
 const byte SEGMENT_SELECT[] = {0xF1,0xF2,0xF4,0xF8};
@@ -955,12 +955,24 @@ byte AsciiToSegmentValue (byte ascii)
       case '_':
         segmentValue = 247;
         break;
+      case '?':
+        segmentValue = 172;
+        break;
+      case '!':
+        segmentValue = 121;
+        break;
+      case '\'':
+        segmentValue = 253;
+        break;
+      case '"':
+        segmentValue = 221;
+        break;
       case ' ':
         segmentValue = 255;
         break;
     }
   }
-  
+
   return segmentValue;
 }
 
