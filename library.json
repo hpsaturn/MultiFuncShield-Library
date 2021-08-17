@@ -1,19 +1,33 @@
 {
   "name": "MultiFuncShield",
-  "author": "Hackatronics",
-  "maintainer":"hpsaturn@gmail.com",
   "keywords": "Multi function Shield, MFS, MultiFuncShield",
   "description": "Allows easy use of multi function shield.",
+  "authors":
+  [
+    {
+      "name": "@hpsaturn",
+      "url": "https://hpsaturn.com",
+      "maintainer": true
+    },
+    {
+      "name": "Hackatronics",
+      "url": "http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/"
+    }
+  ],
   "repository":
   {
     "type": "git",
     "url": "https://github.com/hpsaturn/MultiFuncShield-Library.git"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "frameworks": "arduino",
   "platforms":
   [
     "atmelavr",
     "teensy"
+  ],
+  "dependencies":
+  [
+    {"name":"TimerOne", "owner":"paulstoffregen", "version":"^1.1"}
   ]
 }
