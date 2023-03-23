@@ -1168,7 +1168,7 @@ int MedianOf9(int s0, int s1, int s2, int s3, int s4, int s5, int s6, int s7, in
 
 /* ---------------------------------------------------------------------- */
 
-#if defined(__AVR_ATmega328P__)      // Uno
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328PB__)     // Uno || Uno+
 
   /* Write a value to one of the 4 digits of the display */
   void WriteValueToSegment(byte Segment, byte Value)
