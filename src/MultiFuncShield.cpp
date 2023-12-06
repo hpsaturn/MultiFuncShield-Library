@@ -305,7 +305,7 @@ void MultiFuncShield::setPulseInTimeOut(unsigned int timeOut)
 // ----------------------------------------------------------------------------------------------------
 void MultiFuncShield::queueButton (byte button)
 {
-  if (buttonBufferCount <= sizeof (buttonBuffer))
+  if (buttonBufferCount <= (int) sizeof (buttonBuffer))
   {
     buttonBuffer [button_write_pos] = button;
     buttonBufferCount++;
@@ -487,14 +487,12 @@ void MultiFuncShield::write(float number, byte decimalPlaces)
 // ----------------------------------------------------------------------------------------------------
 void MultiFuncShield::write(const char *text, byte rightJustify)
 {
-  byte displayBuf[] = {0,0,0,0}, *pBuf = displayBuf;
+  byte displayBuf[] = {0,0,0,0};
   
   byte idx =0;
   
   for (; *text != 0 && idx < sizeof(displayBuf); text++)
   {
-    byte offset = 0;
-    
     if (*text == '.')
     {
       if (idx > 0)
@@ -542,9 +540,9 @@ void MultiFuncShield::write(const char *text, byte rightJustify)
   // left justify
   else
   {
-    for (int i =0; i < sizeof(displayBuf); i++)
+    for (int i =0; i < (int) sizeof(displayBuf); i++)
     {
-      displayMemory[i] = displayBuf[i];
+      displayMemory[i] = (char) displayBuf[i];
     }
   }
 }
@@ -774,7 +772,7 @@ void MultiFuncShield::isrCallBack()
     
     byte btnStateNow;
     
-    for (int i=0; i < sizeof(buttonPins); i++)
+    for (int i=0; i < (int)sizeof(buttonPins); i++)
     {
       //btnStateNow = !digitalRead(buttonPins[i]);
       btnStateNow = !readButton(i);
@@ -894,7 +892,7 @@ void MultiFuncShield::manualButtonHandler()
 {
   byte btnStateNow;
   
-  for (int i=0; i < sizeof(buttonPins); i++)
+  for (int i=0; i < (int) sizeof(buttonPins); i++)
   {
     btnStateNow = !digitalRead(buttonPins[i]);
     
@@ -1202,6 +1200,7 @@ int MedianOf9(int s0, int s1, int s2, int s3, int s4, int s5, int s6, int s7, in
     case 2:
       return bitRead(PINC, 3);
     }
+    return 0;
   }
   
   void writeBeeper (byte value)
