@@ -52,6 +52,7 @@ secrets.load
 secrets.load.*
 install/*
 releases/*
+deploy.sh
 
 # IDE
 .travis.yml
@@ -66,3 +67,5 @@ settings.json
 
 # travis
 .travis.yml
+
+

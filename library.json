@@ -28,7 +28,8 @@
   ],
   "dependencies":
   [
-    {"name":"TimerOne", "owner":"paulstoffregen", "version":"^1.1"}
+    {"name":"TimerOne", "owner":"paulstoffregen", "version":"1.1.1"},
+    {"name":"Servo", "version":"1.2.1"}
   ],
   "export": {
     "exclude":
@@ -36,7 +37,8 @@
         ".github",
         ".travis.yml",
         ".gitignore",
-        "releases"
+        "releases",
+        "deploy.sh"
     ]
   }
 }
