@@ -1,13 +1,12 @@
 [![PlatformIO](https://github.com/hpsaturn/MultiFuncShield-Library/workflows/PlatformIO/badge.svg)](https://github.com/kike-canaries/canairio_sensorlib/actions/) ![ViewCount](https://views.whatilearened.today/views/github/hpsaturn/MultiFuncShield-Library.svg) 
 
-
 # Multi Function Shield Library
 
 ![Shield](images/shield00.jpg)
 
 # Library Features
 
-- Timer configuration 
+- Timer configuration
 - LED digit display handling (text, int, float)
 - Manual LED digits refresh
 - LED digit blinks and selection
@@ -20,4 +19,5 @@
 Please see the examples for details.
 
 # Credits
+
 Arduino Multi Function Shield Library (Imported by [Cohesive Computing](http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/) - Hackatronics)
