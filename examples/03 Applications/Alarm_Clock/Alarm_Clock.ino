@@ -3,6 +3,9 @@
 #include <MultiFuncShield.h>
 
 /*
+
+  24h Alarm Clock sample
+
   button 1  : hold to set time or alarm
   button 2  : press to view alarm time or cancel alarm if in progress
   button 3  : increment hour / minute when setting (alarm) time. Hold to toggle alarm setting.
