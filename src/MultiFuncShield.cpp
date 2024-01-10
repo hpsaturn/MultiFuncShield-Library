@@ -80,11 +80,19 @@ void MultiFuncShield::initShield()
 }
 
 // ----------------------------------------------------------------------------------------------------
+#if defined(ARDUINO_ARCH_ESP8266)
+void MultiFuncShield::initialize(Ticker *timer1Instance)
+#else
 void MultiFuncShield::initialize(TimerOne *timer1Instance)
+#endif
 {
   initShield();
   timer1 = timer1Instance;
+#if defined(ARDUINO_ARCH_ESP8266)
+  timer1->attach(1000,isrWrapper); // effectively, 1000 times per second
+#else
   timer1->attachInterrupt(isrWrapper, 1000); // effectively, 1000 times per second
+#endif
 }
 
 
@@ -334,7 +342,7 @@ byte MultiFuncShield::getButton ()
       button_read_pos = 0;
     }
   }
-  
+
   return button;
 }
 
@@ -1355,5 +1363,11 @@ void WriteValueToSegment(byte Segment, byte Value)
       bitWrite(PORTB, 4, value);
       break;
       }
+  }
+#else
+/* Write a value to one of the 4 digits of the display */
+  void WriteValueToSegment(byte Segment, byte Value)
+  {
+    
   }
 #endif

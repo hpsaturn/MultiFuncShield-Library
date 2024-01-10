@@ -17,6 +17,35 @@
 #define ON  1
 #define OFF  0
 
+#if defined(ARDUINO_ARCH_ESP8266)
+#define LED_1_PIN     D5
+#define LED_2_PIN     D6
+#define LED_3_PIN     D7
+#define LED_4_PIN     D8
+#define POT_PIN       RX
+#define BEEPER_PIN    D1
+#define BUTTON_1_PIN  A0
+#define BUTTON_2_PIN  A0
+#define BUTTON_3_PIN  A0
+#define LATCH_PIN     D2
+#define CLK_PIN       D5
+#define DATA_PIN      D6
+#define LM35_PIN      A0
+
+#define DIGIT_1  1
+#define DIGIT_2  2
+#define DIGIT_3  4
+#define DIGIT_4  8
+#define DIGIT_ALL  15
+
+#define LED_1  1
+#define LED_2  2
+#define LED_3  4
+#define LED_4  8
+#define LED_ALL  15
+
+#else
+
 #define LED_1_PIN     13
 #define LED_2_PIN     12
 #define LED_3_PIN     11
@@ -42,6 +71,7 @@
 #define LED_3  4
 #define LED_4  8
 #define LED_ALL  15
+#endif
 
 // button state indicators
 #define BUTTON_PRESSED_IND        (0 << 6)
@@ -172,10 +202,16 @@ class MultiFuncShield
 
     // Gets the temperature reading in 1 tenths of a centigrade.
     int getLM35Data();
-    
-  private:
+
+   private:
     void initShield();
+
+#if defined(ARDUINO_ARCH_ESP8266)
+    Ticker *timer1;
+#else
     TimerOne *timer1;
+#endif
+
     volatile byte timerReadInProgress = 0;
     volatile byte timerWriteInProgress = 0;
     

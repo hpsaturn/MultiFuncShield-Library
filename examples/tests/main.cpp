@@ -1,4 +1,9 @@
+#if defined(ARDUINO_ARCH_ESP8266)
+#include <Ticker.h>
+#else
 #include <TimerOne.h>
+#endif
+
 #include <Wire.h>
 #include <EEPROMex.h>
 #include <MultiFuncShield.h>
