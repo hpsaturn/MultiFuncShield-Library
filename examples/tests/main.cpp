@@ -1,7 +1,4 @@
-#include <TimerOne.h>
-#include <Wire.h>
-#include <EEPROMex.h>
-#include "MultiFuncShield.h" 
+#include <MultiFuncShield.h>
 
 #define TIMER_VALUE_MAX 99
 
@@ -96,8 +93,7 @@ void display (char min, char sec){
 
 void setup() {
   // put your setup code here, to run once:
-  Timer1.initialize();
-  MFS.initialize(&Timer1);    // initialize multifunction shield library
+  MFS.initialize(true);    // initialize multifunction shield library
   MFS.write(0);
   loadTimer();
 }

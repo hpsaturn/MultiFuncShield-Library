@@ -51,6 +51,7 @@ int MedianOf5(int s0, int s1, int s2, int s3, int s4);
 uint8_t pulseInBit;
 uint8_t pulseInPort;
 
+Ticker timer1(isrWrapper, 1);
 
 void MultiFuncShield::initShield()
 {
@@ -80,12 +81,11 @@ void MultiFuncShield::initShield()
 }
 
 // ----------------------------------------------------------------------------------------------------
-void MultiFuncShield::initialize(TimerOne *timer1Instance)
+void MultiFuncShield::initialize(bool isrAttach)
 {
   initShield();
-  
-  timer1 = timer1Instance;
-  timer1->attachInterrupt(isrWrapper, 1000); // effectively, 1000 times per second
+  timer1.start();
+  // timer1->attach(isrWrapper, 1000); // effectively, 1000 times per second
 }
 
 
@@ -335,6 +335,8 @@ byte MultiFuncShield::getButton ()
       button_read_pos = 0;
     }
   }
+
+  timer1.update();
   
   return button;
 }

@@ -1,5 +1,3 @@
-#include <TimerOne.h>
-
 #ifndef MultiFuncShield_h_
 #define MultiFuncShield_h_
 
@@ -7,6 +5,16 @@
 #define CSL_REVISION 041
 
 #include "Arduino.h"
+
+#if defined(ARDUINO_ARCH_ESP32)
+
+#elif defined(ARDUINO_ARCH_ESP8266)
+#include <Ticker.h>
+#else
+#include <Ticker.h>
+#include <Wire.h>
+#include <EEPROMex.h>
+#endif
 
 #define ON  1
 #define OFF  0
@@ -71,7 +79,7 @@ class MultiFuncShield
     void (*userInterrupt)() = NULL;
     
     // Initializes this instance using a TimerOne instance. A 1khz interrupt is attached. 
-    void initialize(TimerOne *timer1);
+    void initialize(bool isrAttach = true);
     
     // Initializes this instance, but interrupt based features are not available.
     void initialize();
@@ -165,7 +173,6 @@ class MultiFuncShield
     
   private:
     void initShield();
-    TimerOne *timer1;
     volatile byte timerReadInProgress = 0;
     volatile byte timerWriteInProgress = 0;
     
