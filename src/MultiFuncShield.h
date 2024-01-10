@@ -11,9 +11,7 @@
 #elif defined(ARDUINO_ARCH_ESP8266)
 #include <Ticker.h>
 #else
-#include <Ticker.h>
-#include <Wire.h>
-#include <EEPROMex.h>
+#include <TimerOne.h>
 #endif
 
 #define ON  1
@@ -79,8 +77,12 @@ class MultiFuncShield
     void (*userInterrupt)() = NULL;
     
     // Initializes this instance using a TimerOne instance. A 1khz interrupt is attached. 
-    void initialize(bool isrAttach = true);
-    
+#if defined(ARDUINO_ARCH_ESP8266)
+    void initialize(Ticker *timer1Instance);
+#else
+    void initialize(TimerOne *timer1Instance);
+#endif
+ 
     // Initializes this instance, but interrupt based features are not available.
     void initialize();
     
@@ -173,6 +175,7 @@ class MultiFuncShield
     
   private:
     void initShield();
+    TimerOne *timer1;
     volatile byte timerReadInProgress = 0;
     volatile byte timerWriteInProgress = 0;
     
