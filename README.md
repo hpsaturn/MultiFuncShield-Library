@@ -20,4 +20,7 @@ Please see the examples for details.
 
 # Credits
 
-The first version was imported from [Cohesive Computing](http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/) - Hackatronics)
+- First version by [Hackatronics - Cohesive Computing](http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/) 
+- Reverse beeper polarity support by [@partsdept](https://github.com/partsdept)
+- Improved digits support by [@hugodopradofernandes](https://github.com/hugodopradofernandes)
+- Atmega328 support by [@victor1115](https://github.com/victor1115)
