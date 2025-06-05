@@ -1,4 +1,4 @@
-[![PlatformIO](https://github.com/hpsaturn/MultiFuncShield-Library/workflows/PlatformIO/badge.svg)](https://github.com/kike-canaries/canairio_sensorlib/actions/) ![ViewCount](https://views.whatilearened.today/views/github/hpsaturn/MultiFuncShield-Library.svg) 
+[![PlatformIO](https://github.com/hpsaturn/MultiFuncShield-Library/workflows/PlatformIO/badge.svg)](https://github.com/hpsaturn/MultiFuncShield-Library/actions/) ![ViewCount](https://views.whatilearened.today/views/github/hpsaturn/MultiFuncShield-Library.svg) 
 
 # Multi Function Shield Library
 
