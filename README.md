@@ -20,4 +20,4 @@ Please see the examples for details.
 
 # Credits
 
-Arduino Multi Function Shield Library (Imported by [Cohesive Computing](http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/) - Hackatronics)
+The first version was imported from [Cohesive Computing](http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/) - Hackatronics)
