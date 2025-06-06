@@ -15,6 +15,19 @@
 - Sonar reading feature
 - LM35 sensor support
 - MPU6050 support
+- LED brightness handling
+
+## Extra features
+
+Here some features contributed by the community regarding the original one:
+
+- [x] Reverse Beeper Polarity Support
+- [x] Missing digits supported
+- [x] Removed warnnings and improved size casts
+- [x] Support for Atmega328
+- [x] PlatformIO support
+- [x] CI Unit tests
+- [x] ESP8266 basic support (it has less pins, see branch)
 
 Please see the examples for details.
 
