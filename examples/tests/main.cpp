@@ -102,7 +102,8 @@ void display (char min, char sec){
 void setup() {
   // put your setup code here, to run once:
   Timer1.initialize();
-  MFS.initialize(&Timer1);    // initialize multifunction shield library
+  MFS.initialize(&Timer1);     // initialize multifunction shield library
+  MFS.setDisplayBrightness(3); // set display brightness to 3 (0-7)
   MFS.write(0);
   loadTimer();
 }

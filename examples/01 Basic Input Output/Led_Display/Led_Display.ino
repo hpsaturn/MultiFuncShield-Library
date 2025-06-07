@@ -7,6 +7,7 @@ void setup() {
   
   Timer1.initialize();
   MFS.initialize(&Timer1);    // initialize multi-function shield library
+  MFS.setDisplayBrightness(3); // set display brightness. 0 = max, 3 = min. 
   
   MFS.write("Hi");
   delay(2000);
