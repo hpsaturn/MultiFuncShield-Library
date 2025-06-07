@@ -28,6 +28,7 @@ Here some features contributed by the community regarding the original one:
 - [x] PlatformIO support
 - [x] CI Unit tests
 - [x] ESP8266 basic support (it has less pins, see branch)
+- [x] Fixed conflic issues on ATmega328P (i.e Axiometa SPARK board)
 
 Please see the examples for details.
 

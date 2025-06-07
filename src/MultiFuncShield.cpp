@@ -8,7 +8,7 @@ MultiFuncShield MFS;
 
 // Display specific variables
 
-const byte LED[] = {LED_1_PIN, LED_2_PIN, LED_3_PIN, LED_4_PIN};
+const byte LEDS[] = {LED_1_PIN, LED_2_PIN, LED_3_PIN, LED_4_PIN};
 
 /* Segment byte maps for numbers 0 to 9 */
 const byte SEGMENT_MAP_DIGIT[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0X80,0X90};
@@ -58,16 +58,16 @@ uint8_t pulseInPort;
 void MultiFuncShield::initShield()
 {
     /* Set each LED pin to outputs */
-  pinMode(LED[0], OUTPUT);
-  pinMode(LED[1], OUTPUT);
-  pinMode(LED[2], OUTPUT);
-  pinMode(LED[3], OUTPUT);
+  pinMode(LEDS[0], OUTPUT);
+  pinMode(LEDS[1], OUTPUT);
+  pinMode(LEDS[2], OUTPUT);
+  pinMode(LEDS[3], OUTPUT);
   
   /* Turn all the LED's off */
-  digitalWrite(LED[0], HIGH);
-  digitalWrite(LED[1], HIGH);
-  digitalWrite(LED[2], HIGH);
-  digitalWrite(LED[3], HIGH);
+  digitalWrite(LEDS[0], HIGH);
+  digitalWrite(LEDS[1], HIGH);
+  digitalWrite(LEDS[2], HIGH);
+  digitalWrite(LEDS[3], HIGH);
 
   /* Set Segment display DIO pins to outputs */
   pinMode(LATCH_PIN,OUTPUT);
@@ -675,12 +675,12 @@ void MultiFuncShield::isrCallBack()
         {
           if (ledBlinkEnabled & (1 << ledIdx))
           {
-            //digitalWrite(LED[ledIdx], !(displayEnabled && ledState & (1 << ledIdx)));
+            //digitalWrite(LEDS[ledIdx], !(displayEnabled && ledState & (1 << ledIdx)));
             writeLed(ledIdx, !(displayEnabled && ledState & (1 << ledIdx)));
           }
           else
           {
-            //digitalWrite(LED[ledIdx], !(ledState & (1 << ledIdx)));
+            //digitalWrite(LEDS[ledIdx], !(ledState & (1 << ledIdx)));
             writeLed(ledIdx, !(ledState & (1 << ledIdx)));
           }
         }
