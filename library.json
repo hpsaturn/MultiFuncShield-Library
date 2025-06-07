@@ -1,7 +1,7 @@
 {
   "name": "MultiFuncShield",
   "keywords": "Multi function Shield, MFS, MultiFuncShield",
-  "description": "Allows easy use of multi function shield.",
+  "description": "A curated, community-maintained library for the popular Multi Function Shield (buttons, LEDs, displays, sensors, and more).",
   "authors":
   [
     {
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/hpsaturn/MultiFuncShield-Library.git"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "frameworks": "arduino",
   "platforms":
   [
