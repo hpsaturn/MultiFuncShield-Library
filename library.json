@@ -37,6 +37,8 @@
         ".github",
         ".travis.yml",
         ".gitignore",
+        "doc",
+        "images",
         "releases",
         "deploy.sh"
     ]
