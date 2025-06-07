@@ -111,8 +111,9 @@ class MultiFuncShield
     void blinkLeds(byte leds,                // use bitwise or, e.g. LED_1 | LED_2
                    byte enabled = ON         // ON or OFF
                    );
-
-    void setDisplayBrightness(byte level);  // 0 = max, 3 = min
+    
+    // Sets the brightness of the display. 0 = max brightness, 3 = min brightness.
+    void setDisplayBrightness(byte level);
     
     // Engage the beeper, which is managed in the background. Period timing is in 100th of second
     void beep(unsigned int onPeriod = 20, unsigned int offPeriod = 0, byte cycles = 1, unsigned int loopCycles = 1 /* 0=indefinitely */, unsigned int loopDelayPeriod =0);
