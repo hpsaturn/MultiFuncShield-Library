@@ -23,8 +23,11 @@ const byte BLINK_ON_COUNT = 65;
 const byte BLINK_OFF_COUNT = 20;
 
 volatile byte displayMemory[4] = {255,255,255,255};
-byte displayTimerScaler = 4;
 
+#define	DISPLAY_TIMER_SCALER_RELOAD	4
+
+volatile byte displayTimerScaler = DISPLAY_TIMER_SCALER_RELOAD;
+volatile byte displayBrightness = 0;
 
 // Sonar ranger specific variables
 
@@ -414,7 +417,6 @@ void MultiFuncShield::writeLeds(byte leds, byte lit)
   }
 }
 
-
 // ----------------------------------------------------------------------------------------------------
 void MultiFuncShield::blinkLeds(byte leds, byte enabled)
 {
@@ -428,6 +430,11 @@ void MultiFuncShield::blinkLeds(byte leds, byte enabled)
   }
 }
 
+// ----------------------------------------------------------------------------------------------------
+void MultiFuncShield::setDisplayBrightness(byte level)
+{
+  displayBrightness = level >= DISPLAY_TIMER_SCALER_RELOAD ? DISPLAY_TIMER_SCALER_RELOAD-1 : level;
+}
 
 // ----------------------------------------------------------------------------------------------------
 void MultiFuncShield::write(int integer)
@@ -604,7 +611,7 @@ void MultiFuncShield::isrCallBack()
   
   if (displayTimerScaler == 0)
   {
-    displayTimerScaler = 4;
+    displayTimerScaler = DISPLAY_TIMER_SCALER_RELOAD;
     
     // Global bink control
     if (blinkEnabled || ledBlinkEnabled)
@@ -681,7 +688,14 @@ void MultiFuncShield::isrCallBack()
       ledOutput = ledOutputNew;
     }
   }
-
+  else
+  {
+    // Handle display brightness
+    if (displayTimerScaler == displayBrightness)
+    {
+      WriteValueToSegment(displayIdx == 0 ? 3 : displayIdx-1, 255);
+    }
+  }
 
   // Beeper control.
   
@@ -1174,15 +1188,15 @@ int MedianOf9(int s0, int s1, int s2, int s3, int s4, int s5, int s6, int s7, in
     bitClear(PORTD, 4);
 
     for (uint8_t i = 0; i < 8; i++)  {
-    bitWrite(PORTB, 0, !!(Value & (1 << (7 - i))));
-    bitSet(PORTD, 7);
-    bitClear(PORTD, 7);
+      bitWrite(PORTB, 0, !!(Value & (1 << (7 - i))));
+      bitSet(PORTD, 7);
+      bitClear(PORTD, 7);
     } 
 
     for (uint8_t i = 0; i < 8; i++)  {
-    bitWrite(PORTB, 0, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
-    bitSet(PORTD, 7);
-    bitClear(PORTD, 7);          
+      bitWrite(PORTB, 0, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
+      bitSet(PORTD, 7);
+      bitClear(PORTD, 7);          
     } 
 
     bitSet(PORTD, 4);
@@ -1235,15 +1249,15 @@ int MedianOf9(int s0, int s1, int s2, int s3, int s4, int s5, int s6, int s7, in
     bitClear(PORTD, 4);
 
     for (uint8_t i = 0; i < 8; i++)  {
-    bitWrite(PORTB, 4, !!(Value & (1 << (7 - i))));
-    bitSet(PORTE, 6);
-    bitClear(PORTE, 6);
+      bitWrite(PORTB, 4, !!(Value & (1 << (7 - i))));
+      bitSet(PORTE, 6);
+      bitClear(PORTE, 6);
     } 
 
     for (uint8_t i = 0; i < 8; i++)  {
-    bitWrite(PORTB, 4, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
-    bitSet(PORTE, 6);
-    bitClear(PORTE, 6);          
+      bitWrite(PORTB, 4, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
+      bitSet(PORTE, 6);
+      bitClear(PORTE, 6);
     } 
 
     bitSet(PORTD, 4);
@@ -1306,15 +1320,15 @@ void WriteValueToSegment(byte Segment, byte Value)
     bitClear(PORTG, 5);
 
     for (uint8_t i = 0; i < 8; i++)  {
-    bitWrite(PORTH, 5, !!(Value & (1 << (7 - i))));
-    bitSet(PORTH, 4);
-    bitClear(PORTH, 4);
+      bitWrite(PORTH, 5, !!(Value & (1 << (7 - i))));
+      bitSet(PORTH, 4);
+      bitClear(PORTH, 4);
     } 
 
     for (uint8_t i = 0; i < 8; i++)  {
-    bitWrite(PORTH, 5, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
-    bitSet(PORTH, 4);
-    bitClear(PORTH, 4);          
+      bitWrite(PORTH, 5, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
+      bitSet(PORTH, 4);
+      bitClear(PORTH, 4);          
     } 
 
     bitSet(PORTG, 5);
