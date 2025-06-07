@@ -1,7 +1,12 @@
+#if defined(ARDUINO_ARCH_ESP8266)
+#include <Ticker.h>
+#else
 #include <TimerOne.h>
+#endif
+
 #include <Wire.h>
 #include <EEPROMex.h>
-#include "MultiFuncShield.h" 
+#include <MultiFuncShield.h>
 
 #define TIMER_VALUE_MAX 99
 

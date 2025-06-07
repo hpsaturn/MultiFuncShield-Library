@@ -1,5 +1,3 @@
-#include <TimerOne.h>
-
 #ifndef MultiFuncShield_h_
 #define MultiFuncShield_h_
 
@@ -8,8 +6,45 @@
 
 #include "Arduino.h"
 
+#if defined(ARDUINO_ARCH_ESP32)
+
+#elif defined(ARDUINO_ARCH_ESP8266)
+#include <Ticker.h>
+#else
+#include <TimerOne.h>
+#endif
+
 #define ON  1
 #define OFF  0
+
+#if defined(ARDUINO_ARCH_ESP8266)
+#define LED_1_PIN     D5
+#define LED_2_PIN     D6
+#define LED_3_PIN     D7
+#define LED_4_PIN     D8
+#define POT_PIN       RX
+#define BEEPER_PIN    D1
+#define BUTTON_1_PIN  A0
+#define BUTTON_2_PIN  A0
+#define BUTTON_3_PIN  A0
+#define LATCH_PIN     D2
+#define CLK_PIN       D5
+#define DATA_PIN      D6
+#define LM35_PIN      A0
+
+#define DIGIT_1  1
+#define DIGIT_2  2
+#define DIGIT_3  4
+#define DIGIT_4  8
+#define DIGIT_ALL  15
+
+#define LED_1  1
+#define LED_2  2
+#define LED_3  4
+#define LED_4  8
+#define LED_ALL  15
+
+#else
 
 #define LED_1_PIN     13
 #define LED_2_PIN     12
@@ -36,6 +71,7 @@
 #define LED_3  4
 #define LED_4  8
 #define LED_ALL  15
+#endif
 
 // button state indicators
 #define BUTTON_PRESSED_IND        (0 << 6)
@@ -71,8 +107,12 @@ class MultiFuncShield
     void (*userInterrupt)() = NULL;
     
     // Initializes this instance using a TimerOne instance. A 1khz interrupt is attached. 
-    void initialize(TimerOne *timer1);
-    
+#if defined(ARDUINO_ARCH_ESP8266)
+    void initialize(Ticker *timer1Instance);
+#else
+    void initialize(TimerOne *timer1Instance);
+#endif
+ 
     // Initializes this instance, but interrupt based features are not available.
     void initialize();
     
@@ -165,10 +205,16 @@ class MultiFuncShield
 
     // Gets the temperature reading in 1 tenths of a centigrade.
     int getLM35Data();
-    
-  private:
+
+   private:
     void initShield();
+
+#if defined(ARDUINO_ARCH_ESP8266)
+    Ticker *timer1;
+#else
     TimerOne *timer1;
+#endif
+
     volatile byte timerReadInProgress = 0;
     volatile byte timerWriteInProgress = 0;
     
