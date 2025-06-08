@@ -1,7 +1,15 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
+/*
+
+For more information and help, please visit https://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/part-3/
+
+All our hackatronics projects are free for personal use, and there are many more
+in the pipeline. If you find our projects helpful or useful, please consider making
+a small donation to our hackatronics fund using the donate buttons on our web pages.
+Thank you.
+
+*/
 
 enum SpeedoModeValues
 {
@@ -10,10 +18,11 @@ enum SpeedoModeValues
 };
 
 byte speedoMode = CALCULATE_SPEED;
-byte wheelDiameterCm = 60;
+byte wheelDiameterCm = 65;
 unsigned int wheelCirmcumferenceCm = (wheelDiameterCm * 314) / 100;
 
 float SpeedKmh (unsigned int wheelCircumferenceCm, unsigned int periodMs);
+float Sp = 0;
 
 
 void setup() {
@@ -21,8 +30,7 @@ void setup() {
   
   pinMode(5, INPUT_PULLUP);
   
-  Timer1.initialize();
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   
   MFS.initPulseInCounter(
       5,                 // use digital pin 5 for pulse input.
@@ -85,7 +93,37 @@ void loop() {
           }
           else
           {
-            MFS.write(SpeedKmh(wheelCirmcumferenceCm, pulsePeriodMs), 1);
+            Sp = SpeedKmh(wheelCirmcumferenceCm, pulsePeriodMs);
+            MFS.write(Sp, 1);
+            if (Sp <= 12)
+            {
+              MFS.writeLeds(LED_1, ON);
+              MFS.writeLeds(LED_2, OFF);
+              MFS.writeLeds(LED_3, OFF);
+              MFS.writeLeds(LED_4, OFF);
+              MFS.beep();
+            } else if (Sp <= 25)
+            {
+              MFS.writeLeds(LED_1, ON);
+              MFS.writeLeds(LED_2, ON);
+              MFS.writeLeds(LED_3, OFF);
+              MFS.writeLeds(LED_4, OFF);
+            } else if (Sp <= 35)
+            {
+              MFS.writeLeds(LED_1, ON);
+              MFS.writeLeds(LED_2, ON);
+              MFS.writeLeds(LED_3, ON);
+              MFS.writeLeds(LED_4, OFF);
+            } else if (Sp <= 55)
+            {
+              MFS.writeLeds(LED_1, ON);
+              MFS.writeLeds(LED_2, ON);
+              MFS.writeLeds(LED_3, ON);
+              MFS.writeLeds(LED_4, ON);
+            }
+
+
+            
           }
         }
         break;
@@ -96,5 +134,5 @@ void loop() {
 
 float SpeedKmh (unsigned int wheelCircumferenceCm, unsigned int periodMs)
 {
-  return (float)(wheelCircumferenceCm * 36) / periodMs;
+  return (float)(wheelCircumferenceCm * 36) / periodMs; // km/h => m/s * 3.6
 }
