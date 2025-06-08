@@ -31,8 +31,25 @@ Here some features contributed by the community regarding the original one:
 - [x] CI Unit tests
 - [x] ESP8266 basic support (it has less pins, see branch)
 - [x] Fixed conflic issues on ATmega328P (i.e Axiometa SPARK board)
+- [x] Metronome example and Speedometer improv
 
 Please see the examples for details.
+
+## PlatformIO full Demo project
+
+Please install first [PlatformIO](http://platformio.org/) open source ecosystem for IoT development compatible with **Arduino** IDE and its command line tools (Windows, MacOs and Linux). Also, you may need to install [git](http://git-scm.com/) in your system.
+
+For run a [complete demo](https://github.com/hpsaturn/mfstimer.git) of this library using PlatformIO, please follow the next steps:
+
+```bash
+git clone https://github.com/hpsaturn/mfstimer.git
+cd mfstimer
+pio run -e uno --target upload
+```
+
+This is a [full PlatformIO project](https://github.com/hpsaturn/mfstimer.git) of countdown timer with some improvements than the original sample of this library.
+
+[![Multi Function Shield Library Demo](https://raw.githubusercontent.com/hpsaturn/MultiFuncShield-Library/refs/heads/master/images/mfs_demo_video.jpg)](https://youtu.be/_Wlip01aUAY)
 
 # Credits
 
@@ -40,3 +57,5 @@ Please see the examples for details.
 - Reverse beeper polarity support by [@partsdept](https://github.com/partsdept)
 - Improved digits support by [@hugodopradofernandes](https://github.com/hugodopradofernandes)
 - Atmega328 support by [@victor1115](https://github.com/victor1115)
+- Metronome example and Speedometer improvs by [@marcosabcarvalho](https://github.com/marcosabcarvalho)
+
