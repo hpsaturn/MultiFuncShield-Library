@@ -54,6 +54,9 @@ int MedianOf5(int s0, int s1, int s2, int s3, int s4);
 uint8_t pulseInBit;
 uint8_t pulseInPort;
 
+// button port specfics
+uint8_t buttonPort[3];
+uint8_t buttonBit[3];
 
 void MultiFuncShield::initShield()
 {
@@ -79,22 +82,40 @@ void MultiFuncShield::initShield()
   /* Set the buzzer pin to an output and turn the buzzer off */
   pinMode(BEEPER_PIN, OUTPUT);
   digitalWrite(BEEPER_PIN, HIGH != beeperReversePolarity);
+
+  /* Set button pins to input */
+  pinMode(A1, INPUT_PULLUP);
+  pinMode(A2, INPUT_PULLUP);
+  pinMode(A3, INPUT_PULLUP);
   
+  int idx=0;
+  buttonPort[idx] = digitalPinToPort(BUTTON_1_PIN);
+  buttonBit[idx] = digitalPinToBitMask(BUTTON_1_PIN);
+  idx++;
+  buttonPort[idx] = digitalPinToPort(BUTTON_2_PIN);
+  buttonBit[idx] = digitalPinToBitMask(BUTTON_2_PIN);
+  idx++;
+  buttonPort[idx] = digitalPinToPort(BUTTON_3_PIN);
+  buttonBit[idx] = digitalPinToBitMask(BUTTON_3_PIN);
+ 
+}
+
+/**
+ * @deprecated deprecated use initialize(use empty instead)
+ */
+void MultiFuncShield::initialize(TimerOne *timer1Instance)
+{
+  initialize(); 
 }
 
 // ----------------------------------------------------------------------------------------------------
-void MultiFuncShield::initialize(TimerOne *timer1Instance)
-{
-  initShield();
-  
-  timer1 = timer1Instance;
-  timer1->attachInterrupt(isrWrapper, 1000); // effectively, 1000 times per second
-}
-
-
 void MultiFuncShield::initialize()
 {
   initShield();
+
+  // piggy back on to timer0, which is already set to approx 1khz.
+  OCR0A = 0xAF;
+  TIMSK0 |= _BV(OCIE0A);
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -786,10 +807,11 @@ void MultiFuncShield::isrCallBack()
     
     byte btnStateNow;
     
-    for (int i=0; i < (int)sizeof(buttonPins); i++)
+    for (int i=0; i < BUTTON_COUNT; i++)
     {
       //btnStateNow = !digitalRead(buttonPins[i]);
-      btnStateNow = !readButton(i);
+      //btnStateNow = !readButton(i);
+      btnStateNow = !(*portInputRegister(buttonPort[i]) & buttonBit[i]);
       
       // If button state has changed, action the change.
       if (buttonState[i] != btnStateNow)
@@ -906,10 +928,10 @@ void MultiFuncShield::manualButtonHandler()
 {
   byte btnStateNow;
   
-  for (int i=0; i < (int) sizeof(buttonPins); i++)
+  for (int i=0; i < BUTTON_COUNT; i++)
   {
-    btnStateNow = !digitalRead(buttonPins[i]);
-    
+    //btnStateNow = !digitalRead(buttonPins[i]);
+    btnStateNow = !(*portInputRegister(buttonPort[i]) & buttonBit[i]);
     // If button state has changed, action the change.
 
     if (buttonState[i] != btnStateNow)
@@ -931,11 +953,15 @@ void MultiFuncShield::manualButtonHandler()
 
 
 // ----------------------------------------------------------------------------------------------------
-void isrWrapper ()
+//void isrWrapper ()
+//{
+//  MFS.isrCallBack();
+//}
+
+SIGNAL(TIMER0_COMPA_vect)
 {
   MFS.isrCallBack();
 }
-
 
 // ----------------------------------------------------------------------------------------------------
 byte AsciiToSegmentValue (byte ascii)

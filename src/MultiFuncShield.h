@@ -58,6 +58,7 @@
 #define BUTTON_3_LONG_PRESSED   (3 |  BUTTON_LONG_PRESSED_IND)
 #define BUTTON_3_LONG_RELEASE   (3 |  BUTTON_LONG_RELEASE_IND)
 
+#define BUTTON_COUNT            3
 #define SMOOTHING_NONE          0
 #define SMOOTHING_MODERATE      1
 #define SMOOTHING_STRONG        2
@@ -70,7 +71,7 @@ class MultiFuncShield
     // Pointer to user interrupt with frequency of 1khz.
     void (*userInterrupt)() = NULL;
     
-    // Initializes this instance using a TimerOne instance. A 1khz interrupt is attached. 
+    // @deprecated deprecated use initialize(use empty instead)
     void initialize(TimerOne *timer1);
     
     // Initializes this instance, but interrupt based features are not available.
@@ -102,6 +103,9 @@ class MultiFuncShield
                       byte enabled = ON      // turns on/off the blinking
                     );
     
+    // Sets the brightness of the display. 0 = max brightness, 3 = min brightness.
+    void setDisplayBrightness(byte level);
+    
     // Turns LEDs on or off.
     void writeLeds(byte leds,                // use bitwise or, e.g. LED_1 | LED_2
                    byte lit                  // ON or OFF
@@ -111,9 +115,6 @@ class MultiFuncShield
     void blinkLeds(byte leds,                // use bitwise or, e.g. LED_1 | LED_2
                    byte enabled = ON         // ON or OFF
                    );
-    
-    // Sets the brightness of the display. 0 = max brightness, 3 = min brightness.
-    void setDisplayBrightness(byte level);
     
     // Engage the beeper, which is managed in the background. Period timing is in 100th of second
     void beep(unsigned int onPeriod = 20, unsigned int offPeriod = 0, byte cycles = 1, unsigned int loopCycles = 1 /* 0=indefinitely */, unsigned int loopDelayPeriod =0);
@@ -168,20 +169,19 @@ class MultiFuncShield
     
   private:
     void initShield();
-    TimerOne *timer1;
     volatile byte timerReadInProgress = 0;
     volatile byte timerWriteInProgress = 0;
     
-    const byte buttonPins[3] = {BUTTON_1_PIN, BUTTON_2_PIN, BUTTON_3_PIN};  // must correspond to button macros above
+    //const byte buttonPins[3] = {BUTTON_1_PIN, BUTTON_2_PIN, BUTTON_3_PIN};  // must correspond to button macros above
     
-    volatile byte buttonBuffer[sizeof(buttonPins) * 2];
+    volatile byte buttonBuffer[BUTTON_COUNT * 2];
     volatile char buttonBufferCount = 0;
     volatile byte button_write_pos = 0;
     volatile byte button_read_pos = 0;
     
     unsigned int buttonSampleIntervalCounter =0;
-    byte buttonState[sizeof(buttonPins)] = {0,0,0};    // current up or down state
-    unsigned int buttonPressTime[sizeof(buttonPins)] = {0,0,0};
+    byte buttonState[BUTTON_COUNT] = {0,0,0};    // current up or down state
+    unsigned int buttonPressTime[BUTTON_COUNT] = {0,0,0};
     
     volatile unsigned long timer_volatile = 0;    // count down timer 1000th of a second resolution.
     volatile unsigned long timer_safe = 0;
@@ -203,7 +203,6 @@ class MultiFuncShield
     byte blinkState = 0;
     byte blinkCounter = 0;
     
-    //byte ledControlMask = 0;       // soft enable / disable LED. Disable LEDs here if using PWM from TImerOne library. 
     byte ledState =0;              // least significant bits mapped to LEDs
     byte ledBlinkEnabled =0;       // least significant bits mapped to LEDs
     byte ledOutput=0;              // current led outputs (taking into consideration blink)
