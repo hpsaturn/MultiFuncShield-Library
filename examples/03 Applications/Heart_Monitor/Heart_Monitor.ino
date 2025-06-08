@@ -1,6 +1,15 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
+
+/*
+
+For more information and help, please visit https://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/part-3/
+
+All our hackatronics projects are free for personal use, and there are many more
+in the pipeline. If you find our projects helpful or useful, please consider making
+a small donation to our hackatronics fund using the donate buttons on our web pages.
+Thank you.
+
+*/
 
 void initializeSensorReading();
 int data[4];
@@ -13,8 +22,7 @@ int lastPulseTime = -1;
 void setup() {
   // put your setup code here, to run once:
   
-  Timer1.initialize();
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   initializeSensorReading();
   //Serial.begin(9600);
 }

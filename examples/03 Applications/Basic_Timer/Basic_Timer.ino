@@ -1,5 +1,3 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
 
@@ -17,8 +15,7 @@ char minutes = 0;
 
 void setup() {
   // put your setup code here, to run once:
-  Timer1.initialize();
-  MFS.initialize(&Timer1);    // initialize multifunction shield library
+  MFS.initialize();    // initialize multifunction shield library
   MFS.write(0);
   
   Serial.begin(9600);

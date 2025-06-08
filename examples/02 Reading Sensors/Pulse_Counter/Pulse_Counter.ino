@@ -1,11 +1,8 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
 void setup() {
   // put your setup code here, to run once:
-  Timer1.initialize();
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   
   MFS.initPulseInCounter(BUTTON_1_PIN);  // use button 1 as means of generating pulses.
 }

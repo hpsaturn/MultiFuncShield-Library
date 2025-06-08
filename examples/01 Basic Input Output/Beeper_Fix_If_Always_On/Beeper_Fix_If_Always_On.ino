@@ -1,11 +1,7 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
 void setup() {
   // put your setup code here, to run once:
-
-  Timer1.initialize();
   
   MFS.setBeeperReversePolarity(true);  // try setting to true if your beeper is always on by default with KNARCO brand boards
 

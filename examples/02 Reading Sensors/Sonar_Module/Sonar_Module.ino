@@ -1,5 +1,3 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
 const int TrigPin = 5;
@@ -13,7 +11,7 @@ void setup() {
   pinMode(EchoPin, INPUT);
   
   Timer1.initialize();
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   
   // initialize with low pass filter: SMOOTHING_NONE, SMOOTHING_MODERATE or SMOOTHING_STRONG
   MFS.initSonar(SMOOTHING_MODERATE);
