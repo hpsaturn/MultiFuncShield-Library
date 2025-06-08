@@ -1,10 +1,8 @@
-#include <TimerOne.h>
-
 #ifndef MultiFuncShield_h_
 #define MultiFuncShield_h_
 
-#define CSL_VERSION "1.0.5"
-#define CSL_REVISION 043
+#define CSL_VERSION "1.0.6"
+#define CSL_REVISION 044
 
 #include "Arduino.h"
 
@@ -70,9 +68,6 @@ class MultiFuncShield
   public:
     // Pointer to user interrupt with frequency of 1khz.
     void (*userInterrupt)() = NULL;
-    
-    // @deprecated deprecated use initialize(use empty instead)
-    void initialize(TimerOne *timer1);
     
     // Initializes this instance, but interrupt based features are not available.
     void initialize();

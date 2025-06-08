@@ -100,15 +100,8 @@ void MultiFuncShield::initShield()
  
 }
 
-/**
- * @deprecated deprecated use initialize(use empty instead)
- */
-void MultiFuncShield::initialize(TimerOne *timer1Instance)
-{
-  initialize(); 
-}
-
 // ----------------------------------------------------------------------------------------------------
+
 void MultiFuncShield::initialize()
 {
   initShield();

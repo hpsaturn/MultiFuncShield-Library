@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/hpsaturn/MultiFuncShield-Library.git"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "frameworks": "arduino",
   "platforms":
   [
