@@ -1,6 +1,15 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
+
+/*
+
+For more information and help, please visit https://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/part-3/
+
+All our hackatronics projects are free for personal use, and there are many more
+in the pipeline. If you find our projects helpful or useful, please consider making
+a small donation to our hackatronics fund using the donate buttons on our web pages.
+Thank you.
+
+*/
 
 const int TrigPin = 5;
 const int EchoPin = 6;
@@ -19,8 +28,7 @@ void setup()
   pinMode(TrigPin, OUTPUT);
   pinMode(EchoPin, INPUT);
   
-  Timer1.initialize();
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   MFS.write("off");
 }
 
@@ -51,7 +59,7 @@ void loop()
         else
         {
           int distance = MFS.getSonarDataCm(TrigPin, EchoPin);
-          
+          //int distance = 5;
           if (distance != 0 && distance < 2000)
           { 
             int offPeriod = distance - 6;
@@ -71,4 +79,3 @@ void loop()
         break;
   }
 }
-

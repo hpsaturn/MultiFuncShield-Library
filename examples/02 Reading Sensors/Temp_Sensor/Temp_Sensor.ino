@@ -1,13 +1,10 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
 // NOTE: make sure jumper J1 is removed from shield, and that LM35 is inserted correctly.
 
 void setup() {
   // put your setup code here, to run once:
-  Timer1.initialize();
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   
   // Initialize using a low pass filter.
   // Choose either: SMOOTHING_NONE, SMOOTHING_MODERATE or SMOOTHING_STRONG

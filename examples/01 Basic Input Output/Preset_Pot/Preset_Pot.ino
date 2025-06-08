@@ -1,12 +1,9 @@
-#include <TimerOne.h>
-#include <Wire.h>
 #include <MultiFuncShield.h>
 
 void setup() {
   // put your setup code here, to run once:
 
-  Timer1.initialize();
-  MFS.initialize(&Timer1);    // initialize multi-function shield library
+  MFS.initialize();    // initialize multi-function shield library
 }
 
 void loop() {

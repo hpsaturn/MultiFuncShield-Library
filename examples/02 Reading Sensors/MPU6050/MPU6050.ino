@@ -1,14 +1,16 @@
-#define _SOFTI2C_H
-#include <SoftI2CMaster.h>
 #include <Wire.h>
-#include <TimerOne.h>
 #include <MultiFuncShield.h>
 
-#include "SoftwareI2C.h"
 #include "I2C.h"
 #include "MPU6050.h"
 
-#define SOFTWARE_I2C
+//#define SOFTWARE_I2C
+
+/*
+
+For more information and help, please visit https://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/part-2/
+
+*/
 
 MPU6050 MPU;
 void displayHeading(byte mode);
@@ -18,21 +20,12 @@ void setup() {
   Serial.begin(9600);
   
   // put your setup code here, to run once:
-  Timer1.initialize();
-
-#if defined (SOFTWARE_I2C)
-  // Use software I2C
-  // Uno and Leonardo, use pin 5 for SCL and 6 for SDA. Mega2560, use pin A5 for SDA.
-  SoftI2C1.initialize();
-  MPU.initialize(&SoftI2C1, MPU_DEFAULT_ADDRESS << 1);
-#else
   // Use hardware I2C
   Wire.begin();
   I2C1.initialize(&Wire);
   MPU.initialize(&I2C1, MPU_DEFAULT_ADDRESS);
-#endif
 
-  MFS.initialize(&Timer1);
+  MFS.initialize();
   MFS.write("Acc");
 }
 

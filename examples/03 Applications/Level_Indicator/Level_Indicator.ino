@@ -1,14 +1,19 @@
-#define _SOFTI2C_H
-#include <SoftI2CMaster.h>
 #include <Wire.h>
-#include <TimerOne.h>
 #include <MultiFuncShield.h>
 
-#include "SoftwareI2C.h"
 #include "I2C.h"
 #include "MPU6050.h"
 
-#define SOFTWARE_I2C
+/*
+
+For more information and help, please visit https://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/part-3/
+
+All our hackatronics projects are free for personal use, and there are many more
+in the pipeline. If you find our projects helpful or useful, please consider making
+a small donation to our hackatronics fund using the donate buttons on our web pages.
+Thank you.
+
+*/
 
 void calibrate();
 
@@ -21,21 +26,12 @@ float zScaleOffset = 1; // multiply Z axis with this value to get as close to 1g
 
 void setup() {
   // put your setup code here, to run once:
-  Timer1.initialize();
 
-#if defined (SOFTWARE_I2C)
-  // Use software I2C
-  // Uno and Leonardo, use pin 5 for SCL and 6 for SDA. Mega2560, use pin 5 for SCL and pin A5 for SDA.
-  SoftI2C1.initialize();
-  MPU.initialize(&SoftI2C1, MPU_DEFAULT_ADDRESS << 1, ACCEL_FS_2, GYRO_FS_250, DLPF_BW_5);
-#else
   // Use hardware I2C
   Wire.begin();
   I2C1.initialize(&Wire);
   MPU.initialize(&I2C1, MPU_DEFAULT_ADDRESS, ACCEL_FS_2, GYRO_FS_250, DLPF_BW_5);
-#endif
-
-  MFS.initialize(&Timer1);
+  MFS.initialize();
 }
 
 void loop() {
