@@ -31,6 +31,7 @@ Here some features contributed by the community regarding the original one:
 - [x] CI Unit tests
 - [x] ESP8266 basic support (it has less pins, see branch)
 - [x] Fixed conflic issues on ATmega328P (i.e Axiometa SPARK board)
+- [x] Metronome example and Speedometer improv
 
 Please see the examples for details.
 
@@ -56,3 +57,5 @@ This is a [full PlatformIO project](https://github.com/hpsaturn/mfstimer.git) of
 - Reverse beeper polarity support by [@partsdept](https://github.com/partsdept)
 - Improved digits support by [@hugodopradofernandes](https://github.com/hugodopradofernandes)
 - Atmega328 support by [@victor1115](https://github.com/victor1115)
+- Metronome example and Speedometer improvs by [@marcosabcarvalho](https://github.com/marcosabcarvalho)
+
