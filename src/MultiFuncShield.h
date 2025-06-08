@@ -3,8 +3,8 @@
 #ifndef MultiFuncShield_h_
 #define MultiFuncShield_h_
 
-#define CSL_VERSION "1.0.4"
-#define CSL_REVISION 042
+#define CSL_VERSION "1.0.5"
+#define CSL_REVISION 043
 
 #include "Arduino.h"
 

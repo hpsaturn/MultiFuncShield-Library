@@ -4,6 +4,14 @@
 
 A curated, community-maintained library for the popular Multi Function Shield (buttons, LEDs, displays, sensors, and more).
 
+<table>
+	<tr>
+		<td>
+			Don't forget to star ⭐ this repository
+		</td>
+	</tr>
+</table>
+
 ![Shield](https://raw.githubusercontent.com/hpsaturn/MultiFuncShield-Library/refs/heads/master/images/shield00.jpg)
 
 # Library Features
