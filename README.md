@@ -34,6 +34,22 @@ Here some features contributed by the community regarding the original one:
 
 Please see the examples for details.
 
+## PlatformIO full Demo project
+
+Please install first [PlatformIO](http://platformio.org/) open source ecosystem for IoT development compatible with **Arduino** IDE and its command line tools (Windows, MacOs and Linux). Also, you may need to install [git](http://git-scm.com/) in your system.
+
+For run a [complete demo](https://github.com/hpsaturn/mfstimer.git) of this library using PlatformIO, please follow the next steps:
+
+```bash
+git clone https://github.com/hpsaturn/mfstimer.git
+cd mfstimer
+pio run -e uno --target upload
+```
+
+This is a [full PlatformIO project](https://github.com/hpsaturn/mfstimer.git) of countdown timer with some improvements than the original sample of this library.
+
+[![Multi Function Shield Library Demo](https://raw.githubusercontent.com/hpsaturn/MultiFuncShield-Library/refs/heads/master/images/mfs_demo_video.jpg)](https://youtu.be/_Wlip01aUAY)
+
 # Credits
 
 - First version by [Hackatronics - Cohesive Computing](http://www.cohesivecomputing.co.uk/hackatronics/arduino-multi-function-shield/) 
