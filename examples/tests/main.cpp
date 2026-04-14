@@ -78,6 +78,7 @@ void checkCountDownConditions (byte btn) {
         // timer has reached 0, so sound the alarm
         MFS.beep(50, 50, 3);  // beep 3 times, 500 milliseconds on / 500 off
         countDownMode = COUNTING_STOPPED;
+        loadTimer(); // reload the timer values from EEPROM
       }
 
     }
