@@ -1,5 +1,25 @@
 #include "MultiFuncShield.h"
 
+/*
+  DISPLAY COMPATIBILITY OPTION
+  ------------------------------------------------------------
+  Some Multi Function Shield clones use the same 74HC595 display
+  pins as the classic board, but their 4-digit display uses
+  active-LOW digit selection.
+
+  Set to 0 for the classic/original shield behavior.
+  Set to 1 for displays that show malformed characters and need
+  inverted/active-LOW digit select values.
+
+  Tested pins:
+    DATA  = D8
+    CLOCK = D7
+    LATCH = D4
+*/
+#ifndef MFS_INVERT_DIGIT_SELECT
+#define MFS_INVERT_DIGIT_SELECT 0
+#endif
+
 #define BUTTON_SAMPLE_INTERVAL_SCALE  20
 #define BUTTON_SAMPLE_INTERVAL  (1000 / BUTTON_SAMPLE_INTERVAL_SCALE)
 
@@ -17,6 +37,40 @@ const byte SEGMENT_MAP_ALPHA[] = {136, 131, 167, 161, 134, 142, 144, 139 ,207, 2
 
 /* Byte maps to select digit 1 to 4 */
 const byte SEGMENT_SELECT[] = {0xF1,0xF2,0xF4,0xF8};
+
+/*
+  Display output normalization helpers.
+
+  The original library segment maps are active LOW. On displays that use
+  inverted/active-LOW digit selection, the segment byte must be normalized
+  and the digit-select byte must be generated as:
+
+    digit 0 = 0xFE
+    digit 1 = 0xFD
+    digit 2 = 0xFB
+    digit 3 = 0xF7
+
+  Keeping this logic in helper functions makes the hardware variation clear
+  and avoids unexplained bit inversions inside the low-level write routine.
+*/
+static inline byte normalizeSegmentValue(byte value)
+{
+#if MFS_INVERT_DIGIT_SELECT
+  return ~value;
+#else
+  return value;
+#endif
+}
+
+static inline byte normalizeDigitSelect(byte segment)
+{
+#if MFS_INVERT_DIGIT_SELECT
+  return (byte)(0xF0 | ((~(1 << segment)) & 0x0F));
+#else
+  return SEGMENT_SELECT[segment];
+#endif
+}
+
 const char DISPLAY_OVERFLOW_ERROR = 'E';
 
 const byte BLINK_ON_COUNT = 65;
@@ -1204,16 +1258,19 @@ int MedianOf9(int s0, int s1, int s2, int s3, int s4, int s5, int s6, int s7, in
   /* Write a value to one of the 4 digits of the display */
   void WriteValueToSegment(byte Segment, byte Value)
   {
+    byte valueOut = normalizeSegmentValue(Value);
+    byte digitOut = normalizeDigitSelect(Segment);
+
     bitClear(PORTD, 4);
 
     for (uint8_t i = 0; i < 8; i++)  {
-      bitWrite(PORTB, 0, !!(Value & (1 << (7 - i))));
+      bitWrite(PORTB, 0, !!(valueOut & (1 << (7 - i))));
       bitSet(PORTD, 7);
       bitClear(PORTD, 7);
     } 
 
     for (uint8_t i = 0; i < 8; i++)  {
-      bitWrite(PORTB, 0, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
+      bitWrite(PORTB, 0, !!(digitOut & (1 << (7 - i))));
       bitSet(PORTD, 7);
       bitClear(PORTD, 7);          
     } 
@@ -1265,16 +1322,19 @@ int MedianOf9(int s0, int s1, int s2, int s3, int s4, int s5, int s6, int s7, in
   /* Write a value to one of the 4 digits of the display */
   void WriteValueToSegment(byte Segment, byte Value)
   {
+    byte valueOut = normalizeSegmentValue(Value);
+    byte digitOut = normalizeDigitSelect(Segment);
+
     bitClear(PORTD, 4);
 
     for (uint8_t i = 0; i < 8; i++)  {
-      bitWrite(PORTB, 4, !!(Value & (1 << (7 - i))));
+      bitWrite(PORTB, 4, !!(valueOut & (1 << (7 - i))));
       bitSet(PORTE, 6);
       bitClear(PORTE, 6);
     } 
 
     for (uint8_t i = 0; i < 8; i++)  {
-      bitWrite(PORTB, 4, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
+      bitWrite(PORTB, 4, !!(digitOut & (1 << (7 - i))));
       bitSet(PORTE, 6);
       bitClear(PORTE, 6);
     } 
@@ -1336,16 +1396,19 @@ void WriteValueToSegment(byte Segment, byte Value)
   /* Write a value to one of the 4 digits of the display */
   void WriteValueToSegment(byte Segment, byte Value)
   {
+    byte valueOut = normalizeSegmentValue(Value);
+    byte digitOut = normalizeDigitSelect(Segment);
+
     bitClear(PORTG, 5);
 
     for (uint8_t i = 0; i < 8; i++)  {
-      bitWrite(PORTH, 5, !!(Value & (1 << (7 - i))));
+      bitWrite(PORTH, 5, !!(valueOut & (1 << (7 - i))));
       bitSet(PORTH, 4);
       bitClear(PORTH, 4);
     } 
 
     for (uint8_t i = 0; i < 8; i++)  {
-      bitWrite(PORTH, 5, !!(SEGMENT_SELECT[Segment] & (1 << (7 - i))));
+      bitWrite(PORTH, 5, !!(digitOut & (1 << (7 - i))));
       bitSet(PORTH, 4);
       bitClear(PORTH, 4);          
     } 

@@ -43,6 +43,14 @@ Here some features contributed by the community regarding the original one:
 
 Please see the examples for details.
 
+### Digit select inversion support
+
+Some Multi Function Shield clones use inverted digit select logic. If the display digits are selected incorrectly on your board, enable the following option before compiling:
+
+```cpp
+#define MFS_INVERT_DIGIT_SELECT 1
+```
+
 ## PlatformIO full Demo project
 
 Please install first [PlatformIO](http://platformio.org/) open source ecosystem for IoT development compatible with **Arduino** IDE and its command line tools (Windows, MacOs and Linux). Also, you may need to install [git](http://git-scm.com/) in your system.
